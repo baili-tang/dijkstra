@@ -6,10 +6,14 @@ type Vertex struct {
 	//ID of the Vertex
 	ID int
 	//Best distance to the Vertex
-	distance      int64
+	distance int64
+
 	bestVerticies []int
 	//A set of all weights to the nodes in the map
 	arcs map[int]int64
+
+	//通过id +终点key取出段Id
+	sIds map[int]int
 }
 
 //NewVertex creates a new vertex
@@ -39,16 +43,18 @@ func (v *Vertex) containsBest(id int) bool {
 	return false
 }
 
-//AddArc adds an arc to the vertex, it's up to the user to make sure this is used
-// correctly, firstly ensuring to use before adding to graph, or to use referenced
-// of the Vertex instead of a copy. Secondly, to ensure the destination is a valid
-// Vertex in the graph. Note that AddArc will overwrite any existing distance set
-// if there is already an arc set to Destination.
 func (v *Vertex) AddArc(Destination int, Distance int64) {
 	if v.arcs == nil {
 		v.arcs = map[int]int64{}
 	}
 	v.arcs[Destination] = Distance
+}
+
+func (v *Vertex) AddSId(Destination int, segmentId int) {
+	if v.sIds == nil {
+		v.sIds = map[int]int{}
+	}
+	v.sIds[Destination] = segmentId
 }
 
 //RemoveArc completely removes the arc to Destination (if it exists), this method will
@@ -64,5 +70,14 @@ func (v *Vertex) GetArc(Destination int) (distance int64, ok bool) {
 	}
 	//idk why but doesn't work on one line?
 	distance, ok = v.arcs[Destination]
+	return
+}
+
+func (v *Vertex) GetSId(Destination int) (sId int, ok bool) {
+	if v.sIds == nil {
+		return 0, false
+	}
+	//idk why but doesn't work on one line?
+	sId, ok = v.sIds[Destination]
 	return
 }

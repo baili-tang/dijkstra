@@ -62,6 +62,27 @@ func (g *Graph) AddArc(Source, Destination int, Distance int64) error {
 	return nil
 }
 
+func (g *Graph) AddSId(Source, Destination int, SegmentId int) error {
+	if len(g.Verticies) <= Source || len(g.Verticies) <= Destination {
+		return errors.New("Source/Destination not found")
+	}
+	g.Verticies[Source].AddSId(Destination, SegmentId)
+	return nil
+}
+
+// func (g *Graph) AddNode(Source, Destination, SegmentId int) error {
+// 	if len(g.Verticies) <= Source || len(g.Verticies) <= Destination {
+// 		return errors.New("Source/Destination not found")
+// 	}
+
+// 	once.Do(func() {
+// 		g.Verticies[Source].Node = &Node{ID: Source, NextNode: &Node{NextNode: &Node{ID: Destination}, WithNextNodeSegment: SegmentId}, WithNextNodeSegment: -1}
+// 	})
+
+// 	g.Verticies[Source].Node = &Node{ID: Source, NextNode: &Node{NextNode: &Node{ID: Destination}, WithNextNodeSegment: SegmentId}, WithNextNodeSegment: SegmentId}
+// 	return nil
+// }
+
 //RemoveArc removes and arc from the Source vertex to the Destination vertex
 // fails if either vertex doesn't exist, but will succeed if destination is
 // not an arc of Source (as a nop)

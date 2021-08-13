@@ -109,6 +109,7 @@ func (g *Graph) postSetupEvaluate(src, dest int, shortest bool) (BestPath, error
 		if oldCurrent == current.ID {
 			continue
 		}
+
 		oldCurrent = current.ID
 		//If the current distance is already worse than the best try another Vertex
 		if shortest && current.distance >= g.best {
