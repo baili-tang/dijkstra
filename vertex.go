@@ -73,6 +73,9 @@ func (v *Vertex) GetArc(Destination int) (distance int64, ok bool) {
 	return
 }
 
+func (v *Vertex) RemoveSId(Destination int) {
+	delete(v.sIds, Destination)
+}
 func (v *Vertex) GetSId(Destination int) (sId int, ok bool) {
 	if v.sIds == nil {
 		return 0, false

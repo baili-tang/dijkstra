@@ -93,3 +93,11 @@ func (g *Graph) RemoveArc(Source, Destination int) error {
 	g.Verticies[Source].RemoveArc(Destination)
 	return nil
 }
+
+func (g *Graph) RemoveSId(Source, Destination int) error {
+	if len(g.Verticies) <= Source || len(g.Verticies) <= Destination {
+		return errors.New("Source/Destination not found")
+	}
+	g.Verticies[Source].RemoveSId(Destination)
+	return nil
+}
